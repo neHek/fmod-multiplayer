@@ -1,0 +1,110 @@
+[gd_scene load_steps=14 format=3 uid="uid://co7gxshtbrdmv"]
+
+[ext_resource type="Script" uid="uid://ce1wtsu13p6r6" path="res://scripts/surfaceType.gd" id="1_7ykc4"]
+[ext_resource type="Script" uid="uid://vrqkbk5scj5w" path="res://scenes/main_scene.gd" id="1_pu3yx"]
+[ext_resource type="Texture2D" uid="uid://cd6hweb35xb81" path="res://assets/metal/atlas.png" id="2_pu3yx"]
+[ext_resource type="PackedScene" uid="uid://cdk6hwb4hi2wc" path="res://scenes/player.tscn" id="3_gubc5"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_nfk4m"]
+size = Vector3(50, 10, 50)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2c62f"]
+albedo_texture = ExtResource("2_pu3yx")
+uv1_scale = Vector3(50, 50, 50)
+
+[sub_resource type="BoxMesh" id="BoxMesh_gyfs4"]
+material = SubResource("StandardMaterial3D_2c62f")
+size = Vector3(50, 10, 50)
+
+[sub_resource type="BoxMesh" id="BoxMesh_2c62f"]
+material = SubResource("StandardMaterial3D_2c62f")
+size = Vector3(100, 50, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_d5x1h"]
+material = SubResource("StandardMaterial3D_2c62f")
+size = Vector3(100, 1, 50)
+
+[sub_resource type="BoxMesh" id="BoxMesh_8mm7a"]
+material = SubResource("StandardMaterial3D_2c62f")
+size = Vector3(50, 1, 50)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_hq1ik"]
+size = Vector3(50, 1, 50)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_66tet"]
+size = Vector3(100, 50, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_hq1ik"]
+
+[node name="Node3D" type="Node3D"]
+script = ExtResource("1_pu3yx")
+PlayerScene = ExtResource("3_gubc5")
+
+[node name="StaticBody3D2" type="StaticBody3D" parent="."]
+script = ExtResource("1_7ykc4")
+SurfaceType = "Wood"
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="StaticBody3D2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 38.5835, -2.79925, 0)
+shape = SubResource("BoxShape3D_nfk4m")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="StaticBody3D2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 38.5807, -2.71795, 0)
+mesh = SubResource("BoxMesh_gyfs4")
+skeleton = NodePath("../..")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+collision_layer = 3
+collision_mask = 3
+script = ExtResource("1_7ykc4")
+SurfaceType = "Grass"
+
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21.1226, 0, 24.8472)
+mesh = SubResource("BoxMesh_2c62f")
+skeleton = NodePath("../..")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 24.6368, 4.28783, -25.1041)
+mesh = SubResource("BoxMesh_d5x1h")
+skeleton = NodePath("../..")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D"]
+mesh = SubResource("BoxMesh_8mm7a")
+skeleton = NodePath("../..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+shape = SubResource("BoxShape3D_hq1ik")
+
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21.2211, 0, 24.8671)
+shape = SubResource("BoxShape3D_66tet")
+
+[node name="CollisionShape3D4" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24.6333, 4.33897, -25.1723)
+shape = SubResource("BoxShape3D_66tet")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 116.608, -46.1456)
+
+[node name="CSGMesh3D" type="CSGMesh3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.0278, 1.63093, 0)
+mesh = SubResource("BoxMesh_hq1ik")
+
+[node name="FmodEventEmitter3D" type="FmodEventEmitter3D" parent="CSGMesh3D"]
+event_name = "event:/spatialTest"
+event_guid = "{1a70e2ff-b160-41b4-8438-9c8c05caf02a}"
+
+[node name="FmodBankLoader" type="FmodBankLoader" parent="."]
+bank_paths = ["res://FMod-bank/Desktop/Master.strings.bank", "res://FMod-bank/Desktop/Master.bank"]
+
+[node name="SpawnLocations" type="Node3D" parent="."]
+
+[node name="0" type="Marker3D" parent="SpawnLocations" groups=["PlayerSpawnPoint"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+
+[node name="1" type="Marker3D" parent="SpawnLocations" groups=["PlayerSpawnPoint"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 10)
+
+[node name="2" type="Marker3D" parent="SpawnLocations"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.79229, 0.440161, 0)

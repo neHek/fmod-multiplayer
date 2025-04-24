@@ -1,0 +1,86 @@
+[gd_scene load_steps=12 format=3 uid="uid://co7gxshtbrdmv"]
+
+[ext_resource type="PackedScene" uid="uid://cdk6hwb4hi2wc" path="res://player.tscn" id="1_0f027"]
+[ext_resource type="Texture2D" uid="uid://cd6hweb35xb81" path="res://assets/metal/atlas.png" id="1_2c62f"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2c62f"]
+albedo_texture = ExtResource("1_2c62f")
+uv1_scale = Vector3(50, 50, 50)
+
+[sub_resource type="BoxMesh" id="BoxMesh_2c62f"]
+material = SubResource("StandardMaterial3D_2c62f")
+size = Vector3(100, 50, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_gyfs4"]
+material = SubResource("StandardMaterial3D_2c62f")
+size = Vector3(50, 10, 50)
+
+[sub_resource type="BoxMesh" id="BoxMesh_d5x1h"]
+material = SubResource("StandardMaterial3D_2c62f")
+size = Vector3(100, 1, 50)
+
+[sub_resource type="BoxMesh" id="BoxMesh_8mm7a"]
+material = SubResource("StandardMaterial3D_2c62f")
+size = Vector3(50, 1, 50)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_hq1ik"]
+size = Vector3(50, 1, 50)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_nfk4m"]
+size = Vector3(50, 10, 50)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_66tet"]
+size = Vector3(100, 50, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_hq1ik"]
+
+[node name="Node3D" type="Node3D"]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21.1226, 0, 24.8472)
+mesh = SubResource("BoxMesh_2c62f")
+skeleton = NodePath("../..")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 38.5807, -2.71795, 0)
+mesh = SubResource("BoxMesh_gyfs4")
+skeleton = NodePath("../..")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 24.6368, 4.28783, -25.1041)
+mesh = SubResource("BoxMesh_d5x1h")
+skeleton = NodePath("../..")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D"]
+mesh = SubResource("BoxMesh_8mm7a")
+skeleton = NodePath("../..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+shape = SubResource("BoxShape3D_hq1ik")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 38.5835, -2.79925, 0)
+shape = SubResource("BoxShape3D_nfk4m")
+
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21.2211, 0, 24.8671)
+shape = SubResource("BoxShape3D_66tet")
+
+[node name="CollisionShape3D4" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24.6333, 4.33897, -25.1723)
+shape = SubResource("BoxShape3D_66tet")
+
+[node name="Player" parent="." instance=ExtResource("1_0f027")]
+transform = Transform3D(-0.998271, 0, -0.0587836, 0, 1, 0, 0.0587836, 0, -0.998271, 0, 0.82563, 0)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 116.608, -46.1456)
+
+[node name="CSGMesh3D" type="CSGMesh3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.0278, 1.63093, 0)
+mesh = SubResource("BoxMesh_hq1ik")
+
+[node name="FmodBankLoader" type="FmodBankLoader" parent="."]
+bank_paths = ["res://FMod-bank/Desktop/Master.strings.bank", "res://FMod-bank/Desktop/Master.bank"]

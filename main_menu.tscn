@@ -1,0 +1,99 @@
+[gd_scene load_steps=2 format=3 uid="uid://c6wtnykyqk233"]
+
+[ext_resource type="Script" uid="uid://3iivs6jwqwdr" path="res://scripts/main_menu.gd" id="1_3gm5c"]
+
+[node name="MainMenu" type="Control"]
+custom_minimum_size = Vector2(200, 200)
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+script = ExtResource("1_3gm5c")
+
+[node name="Host" type="Button" parent="."]
+layout_mode = 2
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 40.0001
+offset_top = -60.0
+offset_right = 98.0001
+offset_bottom = -29.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(2.23781, 2.48798)
+text = "Host"
+
+[node name="Join" type="Button" parent="."]
+layout_mode = 2
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -214.0
+offset_top = -60.0
+offset_right = -161.0
+offset_bottom = -29.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(2.731, 2.53939)
+text = "Join"
+
+[node name="StartGame" type="Button" parent="."]
+layout_mode = 2
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -155.0
+offset_top = -230.0
+offset_right = -59.0
+offset_bottom = -199.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(2.731, 2.53939)
+text = "Start Game
+"
+
+[node name="IP" type="LineEdit" parent="."]
+layout_mode = 0
+offset_left = 248.0
+offset_top = 333.0
+offset_right = 492.0
+offset_bottom = 380.0
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_left = 199.0
+offset_top = 333.0
+offset_right = 219.0
+offset_bottom = 356.0
+scale = Vector2(1.73216, 1.98826)
+text = "IP:
+"
+
+[node name="Name" type="LineEdit" parent="."]
+layout_mode = 0
+offset_left = 249.0
+offset_top = 265.0
+offset_right = 493.0
+offset_bottom = 312.0
+text = "Ivan"
+
+[node name="Label2" type="Label" parent="."]
+layout_mode = 0
+offset_left = 149.0
+offset_top = 265.0
+offset_right = 200.0
+offset_bottom = 288.0
+scale = Vector2(1.73216, 1.98826)
+text = "Name:"
+
+[connection signal="button_down" from="Host" to="." method="_on_host_button_down"]
+[connection signal="button_down" from="Join" to="." method="_on_join_button_down"]
+[connection signal="button_down" from="StartGame" to="." method="_on_start_game_button_down"]

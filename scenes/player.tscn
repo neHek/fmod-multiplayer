@@ -1,0 +1,90 @@
+[gd_scene load_steps=9 format=3 uid="uid://cdk6hwb4hi2wc"]
+
+[ext_resource type="Script" uid="uid://5wvltijhac0g" path="res://scripts/player.gd" id="1_2f8j2"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_4flbx"]
+radius = 1.0
+height = 5.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4flbx"]
+albedo_color = Color(0.323103, 0.533137, 0.999997, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_onrkg"]
+material = SubResource("StandardMaterial3D_4flbx")
+radius = 0.2
+height = 0.4
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_i3pqv"]
+albedo_color = Color(0.321569, 0.533333, 1, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_hqtel"]
+material = SubResource("StandardMaterial3D_i3pqv")
+radius = 0.2
+height = 0.4
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_3rsb5"]
+radius = 1.0
+height = 5.0
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_3vyb7"]
+properties/0/path = NodePath(".:rotation")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath(".:sync_pos")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+
+[node name="Player" type="CharacterBody3D" groups=["player"]]
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("1_2f8j2")
+jump_height = 2.0
+
+[node name="Body" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.46523, 0)
+mesh = SubResource("CapsuleMesh_4flbx")
+skeleton = NodePath("../CollisionShape3D")
+
+[node name="LeftEye" type="MeshInstance3D" parent="Body"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.305598, 1.46444, -0.856764)
+mesh = SubResource("SphereMesh_onrkg")
+skeleton = NodePath("../..")
+
+[node name="RightEye" type="MeshInstance3D" parent="Body"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.298563, 1.46444, -0.856764)
+mesh = SubResource("SphereMesh_hqtel")
+skeleton = NodePath("../LeftEye")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.46523, 0)
+shape = SubResource("CapsuleShape3D_3rsb5")
+
+[node name="Anchor" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.95927, 0)
+
+[node name="Camera" type="Camera3D" parent="Anchor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.0536)
+current = true
+fov = 80.0
+
+[node name="FmodListener3D" type="FmodListener3D" parent="Anchor/Camera"]
+
+[node name="CShape" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.46523, 0)
+visible = false
+shape = SubResource("CapsuleShape3D_3rsb5")
+
+[node name="FmodEventEmitter3D" type="FmodEventEmitter3D" parent="."]
+event_name = "event:/walking"
+event_guid = "{126a17ce-5427-4fee-afdd-44918358d22d}"
+fmod_parameters/walking_material/id = -7627395486014485557
+fmod_parameters/walking_material = 0.0
+fmod_parameters/walking_material/variant_type = 3
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0911251, 0)
+
+[node name="floorRayCast3D" type="RayCast3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.588879, 0)
+hit_from_inside = true
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_3vyb7")
