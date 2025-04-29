@@ -1,9 +1,10 @@
-[gd_scene load_steps=14 format=3 uid="uid://co7gxshtbrdmv"]
+[gd_scene load_steps=20 format=3 uid="uid://co7gxshtbrdmv"]
 
 [ext_resource type="Script" uid="uid://ce1wtsu13p6r6" path="res://scripts/surfaceType.gd" id="1_7ykc4"]
 [ext_resource type="Script" uid="uid://vrqkbk5scj5w" path="res://scenes/main_scene.gd" id="1_pu3yx"]
 [ext_resource type="Texture2D" uid="uid://cd6hweb35xb81" path="res://assets/metal/atlas.png" id="2_pu3yx"]
 [ext_resource type="PackedScene" uid="uid://cdk6hwb4hi2wc" path="res://scenes/player.tscn" id="3_gubc5"]
+[ext_resource type="PackedScene" uid="uid://cohf0eu2dkvlm" path="res://scenes/voip_controller.tscn" id="3_rt2n2"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_nfk4m"]
 size = Vector3(50, 10, 50)
@@ -34,13 +35,30 @@ size = Vector3(50, 1, 50)
 [sub_resource type="BoxShape3D" id="BoxShape3D_66tet"]
 size = Vector3(100, 50, 1)
 
-[sub_resource type="BoxMesh" id="BoxMesh_hq1ik"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gubc5"]
+metallic = 1.0
+roughness = 0.51
+
+[sub_resource type="SphereMesh" id="SphereMesh_rt2n2"]
+material = SubResource("StandardMaterial3D_gubc5")
+
+[sub_resource type="AudioStreamGenerator" id="AudioStreamGenerator_gubc5"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_pu3yx"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_gubc5"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_rt2n2"]
 
 [node name="Node3D" type="Node3D"]
 script = ExtResource("1_pu3yx")
+disable_client_sound = true
 PlayerScene = ExtResource("3_gubc5")
+voip_controller = ExtResource("3_rt2n2")
 
 [node name="StaticBody3D2" type="StaticBody3D" parent="."]
+collision_layer = 3
+collision_mask = 3
 script = ExtResource("1_7ykc4")
 SurfaceType = "Wood"
 
@@ -88,12 +106,18 @@ shape = SubResource("BoxShape3D_66tet")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 116.608, -46.1456)
 
 [node name="CSGMesh3D" type="CSGMesh3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.0278, 1.63093, 0)
-mesh = SubResource("BoxMesh_hq1ik")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.3155, 1.63093, -6.17734)
+mesh = SubResource("SphereMesh_rt2n2")
 
 [node name="FmodEventEmitter3D" type="FmodEventEmitter3D" parent="CSGMesh3D"]
 event_name = "event:/spatialTest"
 event_guid = "{1a70e2ff-b160-41b4-8438-9c8c05caf02a}"
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="CSGMesh3D" groups=["audio_output"]]
+stream = SubResource("AudioStreamGenerator_gubc5")
+autoplay = true
+max_polyphony = 3
+bus = &"Radio"
 
 [node name="FmodBankLoader" type="FmodBankLoader" parent="."]
 bank_paths = ["res://FMod-bank/Desktop/Master.strings.bank", "res://FMod-bank/Desktop/Master.bank"]
@@ -101,10 +125,22 @@ bank_paths = ["res://FMod-bank/Desktop/Master.strings.bank", "res://FMod-bank/De
 [node name="SpawnLocations" type="Node3D" parent="."]
 
 [node name="0" type="Marker3D" parent="SpawnLocations" groups=["PlayerSpawnPoint"]]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.0146, 1, -6.02284)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="SpawnLocations/0"]
+mesh = SubResource("PlaneMesh_pu3yx")
+skeleton = NodePath("../../..")
 
 [node name="1" type="Marker3D" parent="SpawnLocations" groups=["PlayerSpawnPoint"]]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 10)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.35829, 1, -6.23883)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="SpawnLocations/1"]
+transform = Transform3D(0.999996, -0.00272271, 0, 0.00272271, 0.999996, 0, 0, 0, 1, 0, 0, 0)
+mesh = SubResource("PlaneMesh_gubc5")
 
 [node name="2" type="Marker3D" parent="SpawnLocations"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.79229, 0.440161, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.76299, 0.440161, -6.50715)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="SpawnLocations/2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.12245, 0)
+mesh = SubResource("PlaneMesh_rt2n2")

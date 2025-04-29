@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://cohf0eu2dkvlm"]
+
+[ext_resource type="Script" uid="uid://deb1ofa1oukw8" path="res://scripts/voip_controller.gd" id="1_gg1f1"]
+
+[sub_resource type="AudioStreamGenerator" id="AudioStreamGenerator_gg1f1"]
+
+[node name="voip_controller" type="Node3D"]
+script = ExtResource("1_gg1f1")
+output_choice = "Voice"
+buffer_size = 512
+
+[node name="input" type="AudioStreamPlayer3D" parent="."]
+bus = &"Record"
+
+[node name="output" type="AudioStreamPlayer3D" parent="."]
+stream = SubResource("AudioStreamGenerator_gg1f1")

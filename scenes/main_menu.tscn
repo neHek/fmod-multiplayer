@@ -13,6 +13,7 @@ grow_vertical = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 script = ExtResource("1_3gm5c")
+autoconnect = true
 
 [node name="Host" type="Button" parent="."]
 layout_mode = 2
@@ -93,6 +94,24 @@ offset_right = 200.0
 offset_bottom = 288.0
 scale = Vector2(1.73216, 1.98826)
 text = "Name:"
+
+[node name="Log" type="RichTextLabel" parent="."]
+layout_mode = 0
+offset_left = 200.0
+offset_top = 410.0
+offset_right = 561.0
+offset_bottom = 1039.0
+bbcode_enabled = true
+
+[node name="PlayerList" type="RichTextLabel" parent="."]
+layout_mode = 0
+offset_left = 204.0
+offset_top = 10.0
+offset_right = 501.0
+offset_bottom = 248.0
+bbcode_enabled = true
+text = "[center][b]Players[/b][/center]
+"
 
 [connection signal="button_down" from="Host" to="." method="_on_host_button_down"]
 [connection signal="button_down" from="Join" to="." method="_on_join_button_down"]

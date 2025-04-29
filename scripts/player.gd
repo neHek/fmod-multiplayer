@@ -27,7 +27,8 @@ var jump_vel: Vector3 # Jumping velocity
 @onready var anchor = $Anchor
 
 func _ready() -> void:
-	$MultiplayerSynchronizer.set_multiplayer_authority(str(name).to_int())
+	if !multiplayer.is_server():
+		$Label.text = 'PEER'
 	capture_mouse()
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -42,10 +43,12 @@ func _physics_process(delta: float) -> void:
 		sync_pos = global_position
 		velocity = _walk(delta) + _gravity(delta) + _jump(delta)
 		move_and_slide()
+		
+		# Processing step sounds
+		if walk_vel != Vector3.ZERO and is_on_floor():
+			walking_sound.rpc(delta)
 	else:
-		global_position = global_position.lerp(sync_pos, 0.1)
-	# Processing step sounds
-	walking_sound(delta)
+		global_position = global_position.lerp(sync_pos, 0.5)
 
 
 func capture_mouse() -> void:
@@ -79,13 +82,13 @@ func _jump(delta: float) -> Vector3:
 	jump_vel = Vector3.ZERO if is_on_floor() else jump_vel.move_toward(Vector3.ZERO, gravity * delta)
 	return jump_vel
 
+@rpc("authority","call_local")
 func walking_sound(delta):
-	if walk_vel != Vector3.ZERO and is_on_floor():
-		if currentStepSoundTimer <= 0:
-			step_emitter.play()
-			currentStepSoundTimer = stepSoundTimer
-		else:
-			currentStepSoundTimer -= delta
+	if currentStepSoundTimer <= 0:
+		step_emitter.play()
+		currentStepSoundTimer = stepSoundTimer
+	else:
+		currentStepSoundTimer -= delta
 	
 	if $floorRayCast3D.is_colliding():
 		var floor = $floorRayCast3D.get_collider()

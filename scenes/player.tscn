@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://cdk6hwb4hi2wc"]
+[gd_scene load_steps=10 format=3 uid="uid://cdk6hwb4hi2wc"]
 
 [ext_resource type="Script" uid="uid://5wvltijhac0g" path="res://scripts/player.gd" id="1_2f8j2"]
 
@@ -34,6 +34,12 @@ properties/1/path = NodePath(".:sync_pos")
 properties/1/spawn = true
 properties/1/replication_mode = 1
 
+[sub_resource type="LabelSettings" id="LabelSettings_3vyb7"]
+font_size = 32
+font_color = Color(1, 0, 0, 1)
+outline_size = 2
+outline_color = Color(0, 0, 0, 1)
+
 [node name="Player" type="CharacterBody3D" groups=["player"]]
 collision_layer = 2
 collision_mask = 2
@@ -67,13 +73,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.0536)
 current = true
 fov = 80.0
 
-[node name="FmodListener3D" type="FmodListener3D" parent="Anchor/Camera"]
-
-[node name="CShape" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.46523, 0)
-visible = false
-shape = SubResource("CapsuleShape3D_3rsb5")
-
 [node name="FmodEventEmitter3D" type="FmodEventEmitter3D" parent="."]
 event_name = "event:/walking"
 event_guid = "{126a17ce-5427-4fee-afdd-44918358d22d}"
@@ -88,3 +87,9 @@ hit_from_inside = true
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_3vyb7")
+
+[node name="Label" type="Label" parent="."]
+offset_right = 40.0
+offset_bottom = 23.0
+text = "HOST"
+label_settings = SubResource("LabelSettings_3vyb7")
