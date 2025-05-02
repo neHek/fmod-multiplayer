@@ -1,33 +1,83 @@
-[gd_resource type="AudioBusLayout" load_steps=4 format=3 uid="uid://td3qmnlenq4m"]
+[gd_resource type="AudioBusLayout" load_steps=10 format=3 uid="uid://td3qmnlenq4m"]
 
-[sub_resource type="AudioEffectDistortion" id="AudioEffectDistortion_j3pel"]
-resource_name = "Distortion"
-mode = 2
+[sub_resource type="AudioEffectDelay" id="AudioEffectDelay_g28q7"]
+resource_name = "Delay"
+dry = 0.48
 
-[sub_resource type="AudioEffectReverb" id="AudioEffectReverb_j3pel"]
-resource_name = "Reverb"
-spread = 0.29
+[sub_resource type="AudioEffectHardLimiter" id="AudioEffectHardLimiter_j3pel"]
+resource_name = "HardLimiter"
+
+[sub_resource type="AudioEffectGate" id="AudioEffectGate_g28q7"]
+threshold_db = -54.0
+attack_ms = 150.0
+resource_name = "Gate"
+
+[sub_resource type="AudioEffectEQ10" id="AudioEffectEQ10_j3pel"]
+resource_name = "EQ10"
+band_db/31_hz = -60.0
+band_db/62_hz = -60.0
+band_db/125_hz = -60.0
+band_db/250_hz = -60.0
+band_db/500_hz = -60.0
+band_db/1000_hz = -60.0
+band_db/2000_hz = -60.0
+band_db/16000_hz = -60.0
+
+[sub_resource type="AudioEffectCompressor" id="AudioEffectCompressor_j3pel"]
+resource_name = "Compressor"
+threshold = -20.0
+
+[sub_resource type="AudioEffectGate" id="AudioEffectGate_j3pel"]
+threshold_db = -60.0
+attack_ms = 150.0
+resource_name = "Gate"
+
+[sub_resource type="AudioEffectBandPassFilter" id="AudioEffectBandPassFilter_j3pel"]
+resource_name = "BandPassFilter"
+cutoff_hz = 3000.0
+
+[sub_resource type="AudioEffectAmplify" id="AudioEffectAmplify_j3pel"]
+resource_name = "Amplify"
+volume_db = 12.0
 
 [sub_resource type="AudioEffectCapture" id="AudioEffectCapture_j3pel"]
 resource_name = "Capture"
 
 [resource]
 bus/0/volume_db = 2.05151
-bus/1/name = &"Radio"
+bus/0/effect/0/effect = SubResource("AudioEffectDelay_g28q7")
+bus/0/effect/0/enabled = false
+bus/0/effect/1/effect = SubResource("AudioEffectHardLimiter_j3pel")
+bus/0/effect/1/enabled = true
+bus/1/name = &"Voice"
 bus/1/solo = false
 bus/1/mute = false
 bus/1/bypass_fx = false
 bus/1/volume_db = 0.0
-bus/1/send = &"Master"
-bus/1/effect/0/effect = SubResource("AudioEffectDistortion_j3pel")
-bus/1/effect/0/enabled = false
-bus/1/effect/1/effect = SubResource("AudioEffectReverb_j3pel")
-bus/1/effect/1/enabled = true
-bus/2/name = &"Record"
+bus/1/send = &"Radio"
+bus/1/effect/0/effect = SubResource("AudioEffectGate_g28q7")
+bus/1/effect/0/enabled = true
+bus/2/name = &"Radio"
 bus/2/solo = false
-bus/2/mute = true
+bus/2/mute = false
 bus/2/bypass_fx = false
-bus/2/volume_db = 2.05373
-bus/2/send = &"Radio"
-bus/2/effect/0/effect = SubResource("AudioEffectCapture_j3pel")
+bus/2/volume_db = 0.0
+bus/2/send = &"Master"
+bus/2/effect/0/effect = SubResource("AudioEffectEQ10_j3pel")
 bus/2/effect/0/enabled = true
+bus/2/effect/1/effect = SubResource("AudioEffectCompressor_j3pel")
+bus/2/effect/1/enabled = true
+bus/2/effect/2/effect = SubResource("AudioEffectGate_j3pel")
+bus/2/effect/2/enabled = true
+bus/2/effect/3/effect = SubResource("AudioEffectBandPassFilter_j3pel")
+bus/2/effect/3/enabled = true
+bus/2/effect/4/effect = SubResource("AudioEffectAmplify_j3pel")
+bus/2/effect/4/enabled = true
+bus/3/name = &"Record"
+bus/3/solo = false
+bus/3/mute = true
+bus/3/bypass_fx = false
+bus/3/volume_db = 2.05373
+bus/3/send = &"Voice"
+bus/3/effect/0/effect = SubResource("AudioEffectCapture_j3pel")
+bus/3/effect/0/enabled = true

@@ -52,7 +52,6 @@ material = SubResource("StandardMaterial3D_gubc5")
 
 [node name="Node3D" type="Node3D"]
 script = ExtResource("1_pu3yx")
-disable_client_sound = true
 PlayerScene = ExtResource("3_gubc5")
 voip_controller = ExtResource("3_rt2n2")
 
@@ -138,7 +137,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.35829, 1, -6.23883)
 transform = Transform3D(0.999996, -0.00272271, 0, 0.00272271, 0.999996, 0, 0, 0, 1, 0, 0, 0)
 mesh = SubResource("PlaneMesh_gubc5")
 
-[node name="2" type="Marker3D" parent="SpawnLocations"]
+[node name="2" type="Marker3D" parent="SpawnLocations" groups=["PlayerSpawnPoint"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.76299, 0.440161, -6.50715)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="SpawnLocations/2"]

@@ -45,6 +45,8 @@ func _ready():
 
 func peer_connected(id):
 	print('Player connected, id: ', id)
+	if multiplayer.is_server():
+		log.text += 'Player joined, id: ' + str(id) + '\n'
 
 func peer_disconnected(id):
 	print('Player disconnected, id: ', id)

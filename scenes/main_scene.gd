@@ -10,7 +10,6 @@ extends Node3D
 
 func _ready():
 	if multiplayer.is_server():
-		get_window().grab_focus()
 		push_warning("I am server")
 		var spawn_points = get_tree().get_nodes_in_group('PlayerSpawnPoint')
 		var index = 0
@@ -32,7 +31,7 @@ func _ready():
 	if disable_server_sound and multiplayer.is_server():
 		AudioServer.set_bus_mute(0, true)
 		FmodServer.mute_all_events()
-	
+	get_window().grab_focus()
 
 @rpc('any_peer')
 func spawn_player(player_name, passed_position):

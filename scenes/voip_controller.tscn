@@ -14,3 +14,4 @@ bus = &"Record"
 
 [node name="output" type="AudioStreamPlayer3D" parent="."]
 stream = SubResource("AudioStreamGenerator_gg1f1")
+bus = &"Voice"
