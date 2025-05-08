@@ -9,7 +9,11 @@ class_name Player extends CharacterBody3D
 
 var jumping: bool = false
 var mouse_captured: bool = false
-@onready var step_emitter = $FmodEventEmitter3D
+
+# audio 
+@onready var step_emitter = $AudioStreamPlayer3D
+var step_sounds : Dictionary
+var floorMaterial : String
 const stepSoundTimer = 0.3
 var currentStepSoundTimer = stepSoundTimer
 
@@ -30,6 +34,13 @@ func _ready() -> void:
 	if !multiplayer.is_server():
 		$Label.text = 'PEER'
 	capture_mouse()
+	
+	# Load the step sound randomizers
+	var randomizers = Global.get_all_resources_in_folder("res://assets/SFX/footsteps")
+	for item in randomizers:
+		var material = item.get_slice('_',0)
+		step_sounds[material] = randomizers[item]
+	
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion:
@@ -84,6 +95,7 @@ func _jump(delta: float) -> Vector3:
 
 @rpc("authority","call_local")
 func walking_sound(delta):
+	
 	if currentStepSoundTimer <= 0:
 		step_emitter.play()
 		currentStepSoundTimer = stepSoundTimer
@@ -91,10 +103,14 @@ func walking_sound(delta):
 		currentStepSoundTimer -= delta
 	
 	if $floorRayCast3D.is_colliding():
-		var floor = $floorRayCast3D.get_collider()
-		if "SurfaceType" in floor:
-			match floor.SurfaceType:
-				"Wood": step_emitter.set_parameter("walking_material", 0.2)
-				"Grass": step_emitter.set_parameter("walking_material", 0.1)
-				"Carpet": step_emitter.set_parameter("walking_material", 0.0)
-					
+		var floorNode = $floorRayCast3D.get_collider()
+		if "SurfaceType" in floorNode:
+			if floorMaterial == floorNode.SurfaceType: return
+			
+			step_emitter.stream = step_sounds[floorNode.SurfaceType]
+			floorMaterial = floorNode.SurfaceType
+			#match floorNode.SurfaceType:
+				#"Wood": step_emitter.set_parameter("walking_material", 0.2)
+				#"Grass": step_emitter.set_parameter("walking_material", 0.1)
+				#"Carpet": step_emitter.set_parameter("walking_material", 0.0)
+					#

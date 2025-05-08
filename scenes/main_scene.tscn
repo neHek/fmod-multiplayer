@@ -1,10 +1,11 @@
-[gd_scene load_steps=20 format=3 uid="uid://co7gxshtbrdmv"]
+[gd_scene load_steps=21 format=3 uid="uid://co7gxshtbrdmv"]
 
 [ext_resource type="Script" uid="uid://ce1wtsu13p6r6" path="res://scripts/surfaceType.gd" id="1_7ykc4"]
 [ext_resource type="Script" uid="uid://vrqkbk5scj5w" path="res://scenes/main_scene.gd" id="1_pu3yx"]
 [ext_resource type="Texture2D" uid="uid://cd6hweb35xb81" path="res://assets/metal/atlas.png" id="2_pu3yx"]
 [ext_resource type="PackedScene" uid="uid://cdk6hwb4hi2wc" path="res://scenes/player.tscn" id="3_gubc5"]
 [ext_resource type="PackedScene" uid="uid://cohf0eu2dkvlm" path="res://scenes/voip_controller.tscn" id="3_rt2n2"]
+[ext_resource type="PackedScene" uid="uid://y1u2w8qqwfjt" path="res://scenes/radio.tscn" id="6_rt2n2"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_nfk4m"]
 size = Vector3(50, 10, 50)
@@ -52,6 +53,7 @@ material = SubResource("StandardMaterial3D_gubc5")
 
 [node name="Node3D" type="Node3D"]
 script = ExtResource("1_pu3yx")
+disable_client_sound = true
 PlayerScene = ExtResource("3_gubc5")
 voip_controller = ExtResource("3_rt2n2")
 
@@ -59,7 +61,7 @@ voip_controller = ExtResource("3_rt2n2")
 collision_layer = 3
 collision_mask = 3
 script = ExtResource("1_7ykc4")
-SurfaceType = "Wood"
+SurfaceType = "wood"
 
 [node name="CollisionShape3D2" type="CollisionShape3D" parent="StaticBody3D2"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 38.5835, -2.79925, 0)
@@ -74,7 +76,7 @@ skeleton = NodePath("../..")
 collision_layer = 3
 collision_mask = 3
 script = ExtResource("1_7ykc4")
-SurfaceType = "Grass"
+SurfaceType = "grass"
 
 [node name="MeshInstance3D4" type="MeshInstance3D" parent="StaticBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21.1226, 0, 24.8472)
@@ -108,10 +110,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 116.608, -46.1456)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.3155, 1.63093, -6.17734)
 mesh = SubResource("SphereMesh_rt2n2")
 
-[node name="FmodEventEmitter3D" type="FmodEventEmitter3D" parent="CSGMesh3D"]
-event_name = "event:/spatialTest"
-event_guid = "{1a70e2ff-b160-41b4-8438-9c8c05caf02a}"
-
 [node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="CSGMesh3D" groups=["audio_output"]]
 stream = SubResource("AudioStreamGenerator_gubc5")
 autoplay = true
@@ -122,6 +120,7 @@ bus = &"Radio"
 bank_paths = ["res://FMod-bank/Desktop/Master.strings.bank", "res://FMod-bank/Desktop/Master.bank"]
 
 [node name="SpawnLocations" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 20.3068)
 
 [node name="0" type="Marker3D" parent="SpawnLocations" groups=["PlayerSpawnPoint"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.0146, 1, -6.02284)
@@ -143,3 +142,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.76299, 0.440161, -6.50715)
 [node name="MeshInstance3D" type="MeshInstance3D" parent="SpawnLocations/2"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.12245, 0)
 mesh = SubResource("PlaneMesh_rt2n2")
+
+[node name="Radio" parent="." instance=ExtResource("6_rt2n2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -21.7863, 0, -7.74251)

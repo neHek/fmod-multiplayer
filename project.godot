@@ -41,6 +41,8 @@ driver/enable_input=true
 
 FmodManager="*res://addons/fmod/FmodManager.gd"
 GameManager="*res://scripts/GameManager.gd"
+Global="*res://scripts/global.gd"
+RadioCaster="*res://scenes/radio_caster.tscn"
 
 [display]
 
@@ -57,6 +59,7 @@ enabled=PackedStringArray("res://addons/fmod/plugin.cfg")
 PlayerSpawnPoint=""
 player=""
 audio_output=""
+radio=""
 
 [input]
 

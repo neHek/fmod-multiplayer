@@ -10,7 +10,6 @@ extends Node3D
 
 func _ready():
 	if multiplayer.is_server():
-		push_warning("I am server")
 		var spawn_points = get_tree().get_nodes_in_group('PlayerSpawnPoint')
 		var index = 0
 		for i in GameManager.Players:
@@ -30,7 +29,7 @@ func _ready():
 		FmodServer.mute_all_events()
 	if disable_server_sound and multiplayer.is_server():
 		AudioServer.set_bus_mute(0, true)
-		FmodServer.mute_all_events()
+		#FmodServer.mute_all_events()
 	get_window().grab_focus()
 
 @rpc('any_peer')
@@ -51,6 +50,7 @@ func set_player_authority(player_name):
 	var voip_node = voip_controller.instantiate()
 	get_node(player_name).get_node("Anchor").add_child(voip_node)
 	voip_node.position = get_node(player_name).get_node("Anchor/Camera").position
+
 
 
 

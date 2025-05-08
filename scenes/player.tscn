@@ -73,14 +73,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.0536)
 current = true
 fov = 80.0
 
-[node name="FmodEventEmitter3D" type="FmodEventEmitter3D" parent="."]
-event_name = "event:/walking"
-event_guid = "{126a17ce-5427-4fee-afdd-44918358d22d}"
-fmod_parameters/walking_material/id = -7627395486014485557
-fmod_parameters/walking_material = 0.0
-fmod_parameters/walking_material/variant_type = 3
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0911251, 0)
-
 [node name="floorRayCast3D" type="RayCast3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.588879, 0)
 hit_from_inside = true
@@ -93,3 +85,7 @@ offset_right = 40.0
 offset_bottom = 23.0
 text = "HOST"
 label_settings = SubResource("LabelSettings_3vyb7")
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.315283, 0)
+bus = &"Environment"

@@ -6,7 +6,6 @@
 
 [node name="voip_controller" type="Node3D"]
 script = ExtResource("1_gg1f1")
-output_choice = "Voice"
 buffer_size = 512
 
 [node name="input" type="AudioStreamPlayer3D" parent="."]

@@ -5,14 +5,14 @@ var Address = '127.0.0.1'
 var port = 8910
 var peer
 
-@onready var log = $Log
+@onready var logNode = $Log
 @export_category('Debug')
 @export var autoconnect : bool = false
 
 
-signal player_connected(peer_id, player_info)
-signal player_disconnected(peer_id)
-signal server_disconnected
+#signal player_connected(peer_id, player_info)
+#signal player_disconnected(peer_id)
+#signal server_disconnected
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -23,7 +23,7 @@ func _ready():
 	# multiplayer.server_disconnected.connect(_on_server_disconnected)
 	
 	if autoconnect:
-		log.text += 'Autoconnecting...\n'
+		logNode.text += 'Autoconnecting...\n'
 		for argument in OS.get_cmdline_args():
 			if argument == '--host':
 				_on_host_button_down()
@@ -46,7 +46,7 @@ func _ready():
 func peer_connected(id):
 	print('Player connected, id: ', id)
 	if multiplayer.is_server():
-		log.text += 'Player joined, id: ' + str(id) + '\n'
+		logNode.text += 'Player joined, id: ' + str(id) + '\n'
 
 func peer_disconnected(id):
 	print('Player disconnected, id: ', id)
@@ -83,11 +83,11 @@ func _on_host_button_down():
 	peer = ENetMultiplayerPeer.new()
 	var error = peer.create_server(port, 4)
 	if error != OK:
-		log.text += "Can't host, error: " + str(error) + '\n'
+		logNode.text += "Can't host, error: " + str(error) + '\n'
 		print("Can't host: ", error )
 		return
 	else:
-		log.text += '[color=green]Server started, port: ' + str(port) + '[/color]\n'
+		logNode.text += '[color=green]Server started, port: ' + str(port) + '[/color]\n'
 	peer.get_host().compress(ENetConnection.COMPRESS_RANGE_CODER)
 	multiplayer.set_multiplayer_peer(peer)
 	SendPlayerInformation($Name.text, multiplayer.get_unique_id())
@@ -97,10 +97,10 @@ func _on_join_button_down():
 	if $IP.text != '':
 		Address = $IP.text
 	peer = ENetMultiplayerPeer.new()
-	var error = peer.create_client(Address, port)
+	var _error = peer.create_client(Address, port)
 	peer.get_host().compress(ENetConnection.COMPRESS_RANGE_CODER)
 	multiplayer.set_multiplayer_peer(peer)
-	log.text += 'Trying to join at ' + str(Address,':',port) + '\n'
+	logNode.text += 'Trying to join at ' + str(Address,':',port) + '\n'
 
 
 func _on_start_game_button_down():
