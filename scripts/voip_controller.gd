@@ -8,6 +8,7 @@ var env_capture : AudioEffectCapture
 @export_range(16, 2048) var buffer_size : int
 var current_playback : AudioStreamGeneratorPlayback
 var idx : int
+var idx_env : int
 var radio_mode : bool = false
 @export var initialized : bool = false
 var output_list : Dictionary
@@ -25,9 +26,8 @@ func _ready():
 		voice_capture = AudioServer.get_bus_effect(idx, 0)
 		initialized = true
 		bind_streams.rpc(unique_id)
-		
-		idx = AudioServer.get_bus_index('Environment')
-		env_capture = AudioServer.get_bus_effect(idx, 0)
+		idx_env = AudioServer.get_bus_index('Environment')
+		env_capture = AudioServer.get_bus_effect(idx_env, 0)
 
 func _process(_delta : float):
 	if not is_multiplayer_authority(): return

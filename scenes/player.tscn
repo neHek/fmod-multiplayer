@@ -41,6 +41,9 @@ properties/2/replication_mode = 1
 properties/3/path = NodePath("Anchor:rotation")
 properties/3/spawn = true
 properties/3/replication_mode = 1
+properties/4/path = NodePath("InventoryNode:active_slot")
+properties/4/spawn = true
+properties/4/replication_mode = 1
 
 [sub_resource type="LabelSettings" id="LabelSettings_3vyb7"]
 font_size = 32
@@ -102,7 +105,7 @@ hit_back_faces = false
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -3.42009)
 
 [node name="ActiveItemSpot" type="Marker3D" parent="Anchor"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.732278, -0.362833, -2.35375)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.572529, -0.362833, -2.05267)
 
 [node name="floorRayCast3D" type="RayCast3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.588879, 0)
@@ -135,4 +138,6 @@ label_settings = SubResource("LabelSettings_qhqgy")
 
 [node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.315283, 0)
+volume_db = 42.424
+max_distance = 25.0
 bus = &"Environment"

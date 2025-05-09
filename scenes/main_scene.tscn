@@ -144,7 +144,5 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.12245, 0)
 mesh = SubResource("PlaneMesh_rt2n2")
 
 [node name="Radio" parent="." instance=ExtResource("6_rt2n2")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.11382, 1.03165, 7.3334)
 
 [node name="Radio2" parent="." instance=ExtResource("6_rt2n2")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17.0195, 1.74577, -23.8202)
