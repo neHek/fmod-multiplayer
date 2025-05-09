@@ -8,6 +8,13 @@ extends Node3D
 @export var PlayerScene: PackedScene
 @export var voip_controller : PackedScene
 
+func _enter_tree():
+	Global.main_scene = self
+	if disable_client_sound and !multiplayer.is_server():
+		Global.audio_muted = true
+	if disable_server_sound and multiplayer.is_server():
+		Global.audio_muted = true
+
 func _ready():
 	if multiplayer.is_server():
 		var spawn_points = get_tree().get_nodes_in_group('PlayerSpawnPoint')
@@ -23,13 +30,6 @@ func _ready():
 		for player in get_tree().get_nodes_in_group('player'):
 			spawn_player.rpc(str(player.name), player.global_position)
 			set_player_authority.rpc(str(player.name))
-	
-	if disable_client_sound and !multiplayer.is_server():
-		AudioServer.set_bus_mute(0, true)
-		FmodServer.mute_all_events()
-	if disable_server_sound and multiplayer.is_server():
-		AudioServer.set_bus_mute(0, true)
-		#FmodServer.mute_all_events()
 	get_window().grab_focus()
 
 @rpc('any_peer')
@@ -43,13 +43,17 @@ func spawn_player(player_name, passed_position):
 @rpc("any_peer","call_local")
 func set_player_authority(player_name):
 	get_node(player_name).set_multiplayer_authority(int(player_name))
-	if multiplayer.get_unique_id() == int(player_name):
+	if multiplayer.get_unique_id() == int(player_name): # If authority
 		get_node(player_name).get_node("Anchor/Camera").make_current()
 		FmodServer.add_listener(0, get_node(player_name).get_node("Anchor"))
+		Global.set_multiplayer_authority(int(player_name))
+	else: # If not authority
+		get_node(player_name).get_node('InventoryNode').visible = false
 	# voip crutch
 	var voip_node = voip_controller.instantiate()
 	get_node(player_name).get_node("Anchor").add_child(voip_node)
 	voip_node.position = get_node(player_name).get_node("Anchor/Camera").position
+	
 
 
 

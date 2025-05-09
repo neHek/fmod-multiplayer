@@ -16,6 +16,7 @@ var peer
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	Global.main_scene = self
 	multiplayer.peer_connected.connect(peer_connected)
 	multiplayer.peer_disconnected.connect(peer_disconnected)
 	multiplayer.connected_to_server.connect(connected_to_server)
@@ -76,7 +77,7 @@ func SendPlayerInformation(player_name, id):
 @rpc("any_peer", "call_local")
 func StartGame():
 	var scene = load("res://scenes/main_scene.tscn").instantiate()
-	get_tree().root.add_child(scene)
+	$'..'.add_child(scene)
 	self.hide()
 
 func _on_host_button_down():

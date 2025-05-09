@@ -3,6 +3,7 @@ var audio_gens : Dictionary = {}
 var voice_playback
 var voiceRad_playback
 var voice_capture : AudioEffectCapture
+var env_capture : AudioEffectCapture
 @onready var input = $input
 @export_range(16, 2048) var buffer_size : int
 var current_playback : AudioStreamGeneratorPlayback
@@ -25,14 +26,17 @@ func _ready():
 		initialized = true
 		bind_streams.rpc(unique_id)
 		
+		idx = AudioServer.get_bus_index('Environment')
+		env_capture = AudioServer.get_bus_effect(idx, 0)
 
 func _process(_delta : float):
 	if not is_multiplayer_authority(): return
-	send_voice_stream()
-	#send_env_stream()
-	# Switching to radio
-	if Input.is_action_just_pressed("switch_radio"):
-		radio_mode = !radio_mode
+	if radio_mode:
+		send_voice_stream('voice,voice_radio')
+		send_env_stream()
+	else:
+		send_voice_stream('voice')
+
 
 
 @rpc("any_peer","call_local","reliable")
@@ -43,12 +47,8 @@ func send_data(sender_id, type, data : PackedVector2Array):
 func bind_streams(id):
 	RadioCaster.register(id)
 
-func send_voice_stream():
+func send_voice_stream(mode = 'voice'):
 	var buff
-	var mode = 'voice'
-	# Local or local+radio
-	if radio_mode:
-		mode = 'voice,voice_radio,env_sound'
 	# Receiving the mic input
 	if voice_capture.can_get_buffer(buffer_size):
 		buff = voice_capture.get_buffer(buffer_size)
@@ -57,7 +57,13 @@ func send_voice_stream():
 	else: return
 
 func send_env_stream():
-	pass
+	var env_buff
+	if radio_mode:
+		if env_capture.can_get_buffer(buffer_size):
+			env_buff = env_capture.get_buffer(buffer_size)
+			send_data.rpc(unique_id, 'env_sound', env_buff)
+			env_capture.clear_buffer()
+	else: return
 
 
 
