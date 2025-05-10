@@ -1,0 +1,114 @@
+[gd_scene load_steps=14 format=3 uid="uid://y1u2w8qqwfjt"]
+
+[ext_resource type="Script" uid="uid://b4x1xhlimtsgp" path="res://scripts/radio.gd" id="1_y83x7"]
+[ext_resource type="Script" uid="uid://0f3xdx2h85h0" path="res://test_area/Pickupable.gd" id="2_ldjbc"]
+[ext_resource type="AudioStream" uid="uid://b1mbn2sp2o3rw" path="res://test_area/radio_sign_off.wav" id="3_7h80l"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_fo3mb"]
+radius = 0.1
+height = 0.4
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_y83x7"]
+radius = 0.1
+height = 0.4
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_ldjbc"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath(".:rotation")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+properties/2/path = NodePath(".:freeze")
+properties/2/spawn = true
+properties/2/replication_mode = 1
+properties/3/path = NodePath("AudioStreamPlayer3D:playing")
+properties/3/spawn = true
+properties/3/replication_mode = 2
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ldjbc"]
+albedo_color = Color(1, 0, 0, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_7h80l"]
+material = SubResource("StandardMaterial3D_ldjbc")
+radius = 0.025
+height = 0.05
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4b7o3"]
+albedo_color = Color(0, 1, 0, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_3mpwk"]
+material = SubResource("StandardMaterial3D_4b7o3")
+radius = 0.025
+height = 0.05
+
+[sub_resource type="Animation" id="Animation_7h80l"]
+length = 0.001
+tracks/0/type = "position_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, 0, 0, 0)
+
+[sub_resource type="Animation" id="Animation_ldjbc"]
+resource_name = "start_transmitting"
+length = 0.15
+tracks/0/type = "position_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, 0, 0, 0, 0.15, 1, -0.1, 0, 0.3)
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_4b7o3"]
+_data = {
+&"RESET": SubResource("Animation_7h80l"),
+&"start_transmitting": SubResource("Animation_ldjbc")
+}
+
+[node name="Radio" type="RigidBody3D" groups=["radio"]]
+disable_mode = 1
+collision_layer = 17
+collision_mask = 17
+script = ExtResource("1_y83x7")
+
+[node name="Pickupable" type="Node3D" parent="."]
+script = ExtResource("2_ldjbc")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("CapsuleMesh_fo3mb")
+
+[node name="Label3D" type="Label3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.335566, 0)
+text = "Radio"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_y83x7")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_ldjbc")
+
+[node name="PowerLightOFF" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0303715, 0.0759905, 0.0764565)
+mesh = SubResource("SphereMesh_7h80l")
+
+[node name="PowerLightON" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0303715, 0.0759905, 0.0764565)
+visible = false
+mesh = SubResource("SphereMesh_3mpwk")
+
+[node name="Streams" type="Node3D" parent="."]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_4b7o3")
+}
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("3_7h80l")
+max_distance = 10.0
+max_polyphony = 2
+bus = &"Environment"

@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://dfkfhsvphb5q2"]
+
+[ext_resource type="Script" uid="uid://tlk7ycron81c" path="res://scripts/radio_caster.gd" id="1_36lrj"]
+
+[node name="RadioCaster" type="Node3D"]
+script = ExtResource("1_36lrj")
+
+[node name="Radio" type="Node3D" parent="."]
