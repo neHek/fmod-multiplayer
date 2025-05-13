@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://dpp0tjv3wkwfk"]
+
+[ext_resource type="Script" uid="uid://0f3xdx2h85h0" path="res://test_area/Pickupable.gd" id="1_4pa28"]
+
+[node name="Pickupable" type="Node3D"]
+script = ExtResource("1_4pa28")
