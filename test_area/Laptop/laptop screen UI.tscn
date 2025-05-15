@@ -1,0 +1,244 @@
+[gd_scene load_steps=15 format=3 uid="uid://cg2ru71agh8t3"]
+
+[ext_resource type="Script" uid="uid://crjf8he75s5n1" path="res://test_area/Laptop/laptop screen UI.gd" id="1_xkjs5"]
+[ext_resource type="PackedScene" uid="uid://cehcphcyuw608" path="res://test_area/Laptop/base_request.tscn" id="2_yscmr"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_51573"]
+bg_color = Color(0.811765, 0.882353, 0.882353, 1)
+border_width_left = 15
+border_width_top = 15
+border_width_right = 15
+border_width_bottom = 15
+border_color = Color(0.111197, 0.111197, 0.111197, 1)
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+
+[sub_resource type="Theme" id="Theme_tcq8m"]
+Panel/styles/panel = SubResource("StyleBoxFlat_51573")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6gahm"]
+bg_color = Color(0.811765, 0.882353, 0.882353, 1)
+border_width_top = 6
+border_color = Color(0.111197, 0.111197, 0.111197, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+
+[sub_resource type="Theme" id="Theme_2irqk"]
+Panel/styles/panel = SubResource("StyleBoxFlat_6gahm")
+
+[sub_resource type="LabelSettings" id="LabelSettings_6s0k1"]
+font_size = 30
+font_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_utmyg"]
+font_size = 30
+font_color = Color(0, 0, 0, 1)
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_xbeg4"]
+size = Vector2(30, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hkleb"]
+bg_color = Color(0.328672, 0.392363, 0.555117, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.0728426, 0.0728427, 0.0728426, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mkii7"]
+bg_color = Color(0.405194, 0.473813, 0.647145, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.0728426, 0.0728427, 0.0728426, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_er3hl"]
+bg_color = Color(0.643525, 0.698922, 0.833158, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.0728426, 0.0728427, 0.0728426, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_25ui2"]
+bg_color = Color(0.960974, 0.968036, 0.998326, 1)
+
+[sub_resource type="Theme" id="Theme_v8r16"]
+VScrollBar/icons/decrement = SubResource("PlaceholderTexture2D_xbeg4")
+VScrollBar/icons/decrement_highlight = SubResource("PlaceholderTexture2D_xbeg4")
+VScrollBar/icons/decrement_pressed = SubResource("PlaceholderTexture2D_xbeg4")
+VScrollBar/icons/increment = SubResource("PlaceholderTexture2D_xbeg4")
+VScrollBar/icons/increment_highlight = SubResource("PlaceholderTexture2D_xbeg4")
+VScrollBar/icons/increment_pressed = SubResource("PlaceholderTexture2D_xbeg4")
+VScrollBar/styles/grabber = SubResource("StyleBoxFlat_hkleb")
+VScrollBar/styles/grabber_highlight = SubResource("StyleBoxFlat_mkii7")
+VScrollBar/styles/grabber_pressed = SubResource("StyleBoxFlat_er3hl")
+VScrollBar/styles/scroll = SubResource("StyleBoxFlat_25ui2")
+VScrollBar/styles/scroll_focus = SubResource("StyleBoxFlat_er3hl")
+
+[node name="laptop screen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_xkjs5")
+
+[node name="dot" type="ColorRect" parent="."]
+visible = false
+z_index = 1
+layout_mode = 0
+offset_left = 29.0
+offset_top = 27.0
+offset_right = 34.0
+offset_bottom = 32.0
+color = Color(1, 0, 1, 1)
+
+[node name="background" type="Panel" parent="."]
+custom_minimum_size = Vector2(1155, 645)
+layout_mode = 0
+offset_right = 1155.0
+offset_bottom = 648.0
+theme = SubResource("Theme_tcq8m")
+
+[node name="footer" type="Panel" parent="."]
+layout_mode = 0
+offset_left = 15.0
+offset_top = 558.0
+offset_right = 1140.0
+offset_bottom = 630.0
+theme = SubResource("Theme_2irqk")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="footer"]
+layout_mode = 0
+offset_right = 1125.0
+offset_bottom = 72.0
+
+[node name="footer elements" type="HBoxContainer" parent="footer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="orders" type="PanelContainer" parent="footer/VBoxContainer/footer elements"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="footer/VBoxContainer/footer elements/orders"]
+layout_mode = 2
+text = " Orders "
+label_settings = SubResource("LabelSettings_6s0k1")
+
+[node name="orders button" type="Button" parent="footer/VBoxContainer/footer elements/orders"]
+layout_mode = 2
+
+[node name="database" type="PanelContainer" parent="footer/VBoxContainer/footer elements"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="footer/VBoxContainer/footer elements/database"]
+layout_mode = 2
+text = " Database "
+label_settings = SubResource("LabelSettings_utmyg")
+
+[node name="database button" type="Button" parent="footer/VBoxContainer/footer elements/database"]
+layout_mode = 2
+
+[node name="settings" type="PanelContainer" parent="footer/VBoxContainer/footer elements"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="footer/VBoxContainer/footer elements/settings"]
+layout_mode = 2
+text = " Settings "
+label_settings = SubResource("LabelSettings_6s0k1")
+
+[node name="settings button" type="Button" parent="footer/VBoxContainer/footer elements/settings"]
+layout_mode = 2
+
+[node name="chat" type="PanelContainer" parent="footer/VBoxContainer/footer elements"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="footer/VBoxContainer/footer elements/chat"]
+layout_mode = 2
+text = " Chat  "
+label_settings = SubResource("LabelSettings_6s0k1")
+
+[node name="settings button" type="Button" parent="footer/VBoxContainer/footer elements/chat"]
+layout_mode = 2
+
+[node name="pages" type="Control" parent="."]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="orders page" type="Control" parent="pages"]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="ScrollContainer" type="ScrollContainer" parent="pages/orders page"]
+custom_minimum_size = Vector2(1090, 510)
+layout_mode = 2
+offset_left = 33.0
+offset_top = 34.0
+offset_right = 1123.0
+offset_bottom = 544.0
+pivot_offset = Vector2(1514, 1147)
+theme = SubResource("Theme_v8r16")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="pages/orders page/ScrollContainer"]
+layout_mode = 2
+theme_override_constants/separation = 15
+
+[node name="base request" parent="pages/orders page/ScrollContainer/VBoxContainer" instance=ExtResource("2_yscmr")]
+layout_mode = 2
+
+[node name="base request2" parent="pages/orders page/ScrollContainer/VBoxContainer" instance=ExtResource("2_yscmr")]
+layout_mode = 2
+
+[node name="base request3" parent="pages/orders page/ScrollContainer/VBoxContainer" instance=ExtResource("2_yscmr")]
+layout_mode = 2
+
+[node name="base request4" parent="pages/orders page/ScrollContainer/VBoxContainer" instance=ExtResource("2_yscmr")]
+layout_mode = 2
+
+[node name="base request5" parent="pages/orders page/ScrollContainer/VBoxContainer" instance=ExtResource("2_yscmr")]
+layout_mode = 2
+
+[node name="base request6" parent="pages/orders page/ScrollContainer/VBoxContainer" instance=ExtResource("2_yscmr")]
+layout_mode = 2
+
+[node name="base request7" parent="pages/orders page/ScrollContainer/VBoxContainer" instance=ExtResource("2_yscmr")]
+layout_mode = 2
+
+[node name="database page" type="Control" parent="pages"]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="settings page" type="Control" parent="pages"]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="chat page" type="Control" parent="pages"]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[connection signal="pressed" from="footer/VBoxContainer/footer elements/orders/orders button" to="." method="_on_orders_button_pressed"]
+[connection signal="pressed" from="footer/VBoxContainer/footer elements/database/database button" to="." method="_on_database_button_pressed"]
+[connection signal="pressed" from="footer/VBoxContainer/footer elements/settings/settings button" to="." method="_on_settings_button_pressed"]
+[connection signal="pressed" from="footer/VBoxContainer/footer elements/chat/settings button" to="." method="_on_settings_button_pressed"]

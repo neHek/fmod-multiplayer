@@ -90,7 +90,7 @@ shape = SubResource("CapsuleShape3D_3rsb5")
 [node name="Anchor" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.95927, 0)
 
-[node name="Camera" type="Camera3D" parent="Anchor"]
+[node name="Camera" type="Camera3D" parent="Anchor" groups=["player_cam"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.0536)
 current = true
 fov = 80.0

@@ -47,7 +47,6 @@ func _unhandled_input(event: InputEvent) -> void:
 		look_dir = event.relative * 0.001
 		if mouse_captured: _rotate_camera()
 	if Input.is_action_just_pressed("jump"): jumping = true
-	if Input.is_action_just_pressed("exit"): get_tree().quit()
 	if Input.is_action_just_pressed("mute"): update_mute(true)
 	
 		# Switching to radio

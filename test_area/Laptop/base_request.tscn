@@ -1,0 +1,150 @@
+[gd_scene load_steps=17 format=3 uid="uid://cehcphcyuw608"]
+
+[ext_resource type="Script" uid="uid://dwavgts14t1sn" path="res://test_area/Laptop/base_request.gd" id="1_pgfda"]
+[ext_resource type="Texture2D" uid="uid://psnnvrj8hfhn" path="res://test_area/Laptop/temp requst state.png" id="2_8of0g"]
+[ext_resource type="Texture2D" uid="uid://ckybyc5vh1iae" path="res://test_area/Laptop/temp Check Mark.png" id="3_3usvt"]
+[ext_resource type="Texture2D" uid="uid://ct2hmtap2rp5e" path="res://test_area/Laptop/temp Check Mark pressed.png" id="4_1ivc8"]
+[ext_resource type="Texture2D" uid="uid://c3nwqvhmfbmjk" path="res://test_area/Laptop/temp X mark.png" id="4_dbps2"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1sv34"]
+border_width_left = 10
+border_width_top = 10
+border_width_right = 10
+border_width_bottom = 5
+border_color = Color(0.450648, 0.450648, 0.450648, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+
+[sub_resource type="Theme" id="Theme_0snwo"]
+PanelContainer/styles/panel = SubResource("StyleBoxFlat_1sv34")
+
+[sub_resource type="LabelSettings" id="LabelSettings_a3lvq"]
+font_size = 28
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_g6qry"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_etrhg"]
+bg_color = Color(0.303233, 0.303233, 0.303233, 0.721569)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_m5tdk"]
+bg_color = Color(0.211765, 0.211765, 0.211765, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_v1iy1"]
+bg_color = Color(0.0588235, 0.0588235, 0.0588235, 0.827451)
+
+[sub_resource type="Theme" id="Theme_6b1d2"]
+Button/styles/focus = SubResource("StyleBoxEmpty_g6qry")
+Button/styles/hover = SubResource("StyleBoxFlat_etrhg")
+Button/styles/normal = SubResource("StyleBoxFlat_m5tdk")
+Button/styles/pressed = SubResource("StyleBoxFlat_v1iy1")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1bd58"]
+border_width_left = 10
+border_width_right = 10
+border_width_bottom = 10
+border_color = Color(0.450648, 0.450648, 0.450648, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1uvbb"]
+border_width_left = 10
+border_width_right = 10
+border_width_bottom = 10
+border_color = Color(0.450648, 0.450648, 0.450648, 1)
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="Theme" id="Theme_aht8c"]
+Panel/styles/panel = SubResource("StyleBoxFlat_1bd58")
+PanelContainer/styles/panel = SubResource("StyleBoxFlat_1uvbb")
+
+[node name="Control" type="VBoxContainer"]
+offset_right = 1000.0
+offset_bottom = 75.0
+size_flags_vertical = 3
+
+[node name="base request" type="VBoxContainer" parent="."]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = -1
+script = ExtResource("1_pgfda")
+
+[node name="request head" type="PanelContainer" parent="base request"]
+custom_minimum_size = Vector2(1000, 75)
+layout_mode = 2
+size_flags_vertical = 0
+theme = SubResource("Theme_0snwo")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="base request/request head"]
+z_index = 1
+layout_mode = 2
+
+[node name="Request name" type="Label" parent="base request/request head/HBoxContainer"]
+custom_minimum_size = Vector2(500, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 1
+mouse_default_cursor_shape = 2
+text = "Name of Request"
+label_settings = SubResource("LabelSettings_a3lvq")
+autowrap_mode = 3
+
+[node name="Request state" type="TextureRect" parent="base request/request head/HBoxContainer"]
+custom_minimum_size = Vector2(200, 60)
+layout_mode = 2
+size_flags_vertical = 0
+mouse_default_cursor_shape = 2
+texture = ExtResource("2_8of0g")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="accept_btn" type="TextureButton" parent="base request/request head/HBoxContainer"]
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 2
+mouse_filter = 1
+texture_normal = ExtResource("3_3usvt")
+texture_pressed = ExtResource("4_1ivc8")
+ignore_texture_size = true
+stretch_mode = 4
+
+[node name="reject_btn" type="TextureButton" parent="base request/request head/HBoxContainer"]
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 2
+mouse_filter = 1
+texture_normal = ExtResource("4_dbps2")
+ignore_texture_size = true
+stretch_mode = 4
+
+[node name="request_window_btn" type="Button" parent="base request/request head"]
+custom_minimum_size = Vector2(700, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+theme = SubResource("Theme_6b1d2")
+
+[node name="request body" type="PanelContainer" parent="base request"]
+visible = false
+custom_minimum_size = Vector2(1000, 75)
+layout_mode = 2
+size_flags_vertical = 0
+theme = SubResource("Theme_aht8c")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="base request/request body"]
+layout_mode = 2
+
+[node name="Customer name" type="Label" parent="base request/request body/VBoxContainer"]
+layout_mode = 2
+text = "Customer name: Jim"
+
+[node name="Reward" type="Label" parent="base request/request body/VBoxContainer"]
+layout_mode = 2
+text = "Reward: 99"
+
+[node name="Description" type="Label" parent="base request/request body/VBoxContainer"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+Duis aute irure dolor in"
+
+[connection signal="button_up" from="base request/request head/HBoxContainer/accept_btn" to="base request" method="_on_accept_btn_button_up"]
+[connection signal="button_up" from="base request/request head/HBoxContainer/reject_btn" to="base request" method="_on_reject_btn_button_up"]
+[connection signal="button_up" from="base request/request head/request_window_btn" to="base request" method="_on_request_window_btn_button_up"]
