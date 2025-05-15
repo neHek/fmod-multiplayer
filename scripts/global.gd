@@ -1,6 +1,11 @@
 extends Node
 var audio_muted : bool = false
 var main_scene
+var RadioTimer : Timer
+
+func _enter_tree() -> void:
+	RadioTimer = create_timer(0.5)
+	RadioTimer.name = 'RadioTimer'
 
 func get_all_resources_in_folder(path):
 	var items = {}
@@ -37,6 +42,16 @@ func get_all_resources_in_folder(path):
 		file_name = dir.get_next()
 	dir.list_dir_end()
 	return items
+
+func create_timer(time : float, oneShot : bool = false):
+	var timer = Timer.new()
+	timer.autostart = true
+	timer.name = 'Timer_' + str(time) + ' sec'
+	add_child(timer)
+	timer.wait_time = time
+	timer.one_shot = oneShot
+	timer.start()
+	return timer
 
 @rpc("any_peer","call_local","reliable")
 func sync_position(node : Node, authority : int) -> void:

@@ -1,16 +1,32 @@
-[gd_scene load_steps=14 format=3 uid="uid://y1u2w8qqwfjt"]
+[gd_scene load_steps=25 format=3 uid="uid://y1u2w8qqwfjt"]
 
 [ext_resource type="Script" uid="uid://b4x1xhlimtsgp" path="res://scripts/radio.gd" id="1_y83x7"]
 [ext_resource type="Script" uid="uid://0f3xdx2h85h0" path="res://test_area/Pickupable.gd" id="2_ldjbc"]
 [ext_resource type="AudioStream" uid="uid://b1mbn2sp2o3rw" path="res://test_area/radio_sign_off.wav" id="3_7h80l"]
 
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_fo3mb"]
-radius = 0.1
-height = 0.4
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7h80l"]
 
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_y83x7"]
-radius = 0.1
-height = 0.4
+[sub_resource type="BoxMesh" id="BoxMesh_4b7o3"]
+material = SubResource("StandardMaterial3D_7h80l")
+size = Vector3(0.15, 0.3, 0.15)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3mpwk"]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_4b7o3"]
+material = SubResource("StandardMaterial3D_3mpwk")
+top_radius = 0.01
+bottom_radius = 0.01
+height = 0.15
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hhhqh"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_hhhqh"]
+material = SubResource("StandardMaterial3D_hhhqh")
+radius = 0.015
+height = 0.03
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_uf7ta"]
+size = Vector3(0.15, 0.3, 0.15)
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_ldjbc"]
 properties/0/path = NodePath(".:position")
@@ -25,6 +41,12 @@ properties/2/replication_mode = 1
 properties/3/path = NodePath("AudioStreamPlayer3D:playing")
 properties/3/spawn = true
 properties/3/replication_mode = 2
+properties/4/path = NodePath(".:power")
+properties/4/spawn = true
+properties/4/replication_mode = 2
+properties/5/path = NodePath(".:energy")
+properties/5/spawn = true
+properties/5/replication_mode = 2
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ldjbc"]
 albedo_color = Color(1, 0, 0, 1)
@@ -69,34 +91,73 @@ _data = {
 &"start_transmitting": SubResource("Animation_ldjbc")
 }
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_uf7ta"]
+albedo_color = Color(0.537011, 0.537011, 0.537011, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_7h80l"]
+material = SubResource("StandardMaterial3D_uf7ta")
+top_radius = 0.02
+bottom_radius = 0.02
+height = 0.02
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_144bg"]
+albedo_color = Color(0.208234, 0.63237, 5.77569e-07, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_wvvpt"]
+material = SubResource("StandardMaterial3D_144bg")
+top_radius = 0.02
+bottom_radius = 0.02
+height = 0.02
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ppvrc"]
+albedo_color = Color(0.82881, 2.71939e-06, 5.77569e-07, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_q5v4t"]
+material = SubResource("StandardMaterial3D_ppvrc")
+top_radius = 0.02
+bottom_radius = 0.02
+height = 0.02
+
 [node name="Radio" type="RigidBody3D" groups=["radio"]]
 disable_mode = 1
-collision_layer = 17
-collision_mask = 17
+collision_layer = 19
+collision_mask = 19
 script = ExtResource("1_y83x7")
 
 [node name="Pickupable" type="Node3D" parent="."]
 script = ExtResource("2_ldjbc")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-mesh = SubResource("CapsuleMesh_fo3mb")
+[node name="Node3D" type="Node3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Node3D"]
+mesh = SubResource("BoxMesh_4b7o3")
+skeleton = NodePath("../..")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.06126, 0.218003, 0)
+mesh = SubResource("CylinderMesh_4b7o3")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0610193, 0.291974, 0)
+mesh = SubResource("SphereMesh_hhhqh")
 
 [node name="Label3D" type="Label3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.335566, 0)
+visible = false
 text = "Radio"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-shape = SubResource("CapsuleShape3D_y83x7")
+shape = SubResource("BoxShape3D_uf7ta")
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_ldjbc")
 
 [node name="PowerLightOFF" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0303715, 0.0759905, 0.0764565)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.000702709, -0.0796688, 0.0564596)
 mesh = SubResource("SphereMesh_7h80l")
 
 [node name="PowerLightON" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0303715, 0.0759905, 0.0764565)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.000702709, -0.0796688, 0.0564596)
 visible = false
 mesh = SubResource("SphereMesh_3mpwk")
 
@@ -112,3 +173,105 @@ stream = ExtResource("3_7h80l")
 max_distance = 10.0
 max_polyphony = 2
 bus = &"Environment"
+
+[node name="PowerIndicator" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.0234768)
+
+[node name="Node3D" type="Node3D" parent="PowerIndicator"]
+
+[node name="Gray" type="MeshInstance3D" parent="PowerIndicator/Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0408514, 0.092074)
+mesh = SubResource("CylinderMesh_7h80l")
+skeleton = NodePath("../..")
+
+[node name="Green" type="MeshInstance3D" parent="PowerIndicator/Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0408514, 0.092074)
+visible = false
+mesh = SubResource("CylinderMesh_wvvpt")
+skeleton = NodePath("../..")
+
+[node name="Red" type="MeshInstance3D" parent="PowerIndicator/Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0408514, 0.092074)
+visible = false
+mesh = SubResource("CylinderMesh_q5v4t")
+skeleton = NodePath("../..")
+
+[node name="Node3D2" type="Node3D" parent="PowerIndicator"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0230363, 0)
+
+[node name="Gray" type="MeshInstance3D" parent="PowerIndicator/Node3D2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0408514, 0.092074)
+mesh = SubResource("CylinderMesh_7h80l")
+skeleton = NodePath("../..")
+
+[node name="Green" type="MeshInstance3D" parent="PowerIndicator/Node3D2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0408514, 0.092074)
+visible = false
+mesh = SubResource("CylinderMesh_wvvpt")
+skeleton = NodePath("../..")
+
+[node name="Red" type="MeshInstance3D" parent="PowerIndicator/Node3D2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0408514, 0.092074)
+visible = false
+mesh = SubResource("CylinderMesh_q5v4t")
+skeleton = NodePath("../..")
+
+[node name="Node3D3" type="Node3D" parent="PowerIndicator"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.046, 0)
+
+[node name="Gray" type="MeshInstance3D" parent="PowerIndicator/Node3D3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0408514, 0.092074)
+mesh = SubResource("CylinderMesh_7h80l")
+skeleton = NodePath("../..")
+
+[node name="Green" type="MeshInstance3D" parent="PowerIndicator/Node3D3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0408514, 0.092074)
+visible = false
+mesh = SubResource("CylinderMesh_wvvpt")
+skeleton = NodePath("../..")
+
+[node name="Red" type="MeshInstance3D" parent="PowerIndicator/Node3D3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0408514, 0.092074)
+visible = false
+mesh = SubResource("CylinderMesh_q5v4t")
+skeleton = NodePath("../..")
+
+[node name="Node3D4" type="Node3D" parent="PowerIndicator"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.069, 0)
+
+[node name="Gray" type="MeshInstance3D" parent="PowerIndicator/Node3D4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0408514, 0.092074)
+mesh = SubResource("CylinderMesh_7h80l")
+skeleton = NodePath("../..")
+
+[node name="Green" type="MeshInstance3D" parent="PowerIndicator/Node3D4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0408514, 0.092074)
+visible = false
+mesh = SubResource("CylinderMesh_wvvpt")
+skeleton = NodePath("../..")
+
+[node name="Red" type="MeshInstance3D" parent="PowerIndicator/Node3D4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0408514, 0.092074)
+visible = false
+mesh = SubResource("CylinderMesh_q5v4t")
+skeleton = NodePath("../..")
+
+[node name="Node3D5" type="Node3D" parent="PowerIndicator"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.092, 0)
+
+[node name="Gray" type="MeshInstance3D" parent="PowerIndicator/Node3D5"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0408514, 0.092074)
+mesh = SubResource("CylinderMesh_7h80l")
+skeleton = NodePath("../..")
+
+[node name="Green" type="MeshInstance3D" parent="PowerIndicator/Node3D5"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0408514, 0.092074)
+visible = false
+mesh = SubResource("CylinderMesh_wvvpt")
+skeleton = NodePath("../..")
+
+[node name="Red" type="MeshInstance3D" parent="PowerIndicator/Node3D5"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0408514, 0.092074)
+visible = false
+mesh = SubResource("CylinderMesh_q5v4t")
+skeleton = NodePath("../..")

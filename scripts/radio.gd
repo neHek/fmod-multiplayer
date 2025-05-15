@@ -2,13 +2,51 @@ extends Node3D
 var power : bool = false
 var transmitting : bool = false
 var player = null
+var max_energy : float = 100
+var energy : float = 30
+@onready var power_indicator_root = $PowerIndicator
+var energy_drain_mod : float = 3
 
 func _ready():
 	await RadioCaster._receiver_spawned(self)
 	update.rpc()
+	Global.RadioTimer.timeout.connect(update_power_indicator.bind())
 
 func _process(delta):
-	pass
+	if get_multiplayer_authority() == multiplayer.get_unique_id():
+		drain_battery(delta)
+
+func drain_battery(time):
+	if energy <= 0: 
+		set_power.rpc(false)
+		return
+	
+	if power and transmitting:
+		energy -= time*energy_drain_mod*2
+	elif power:
+		energy -= time*energy_drain_mod
+	clampf(energy, 0, max_energy)
+
+func update_power_indicator():
+	if power:
+		var power_perc: int = (energy / max_energy) * 100
+		var power_percentage_per_section : float = 100.0 / power_indicator_root.get_child_count()
+		power_perc -= 5
+		for section in power_indicator_root.get_children():
+			if power_perc > 0:
+				section.get_node('Green').visible = true
+				section.get_node('Gray').visible = false
+				section.get_node('Red').visible = false
+				power_perc -= power_percentage_per_section
+			else:
+				section.get_node('Green').visible = false
+				section.get_node('Gray').visible = false
+				section.get_node('Red').visible = true
+	else:
+		for section in power_indicator_root.get_children():
+				section.get_node('Green').visible = false
+				section.get_node('Gray').visible = true
+				section.get_node('Red').visible = false
 
 @rpc("any_peer","call_local","reliable")
 func switch_power():
@@ -16,10 +54,15 @@ func switch_power():
 	if power:
 		$PowerLightOFF.visible = false
 		$PowerLightON.visible = true
+		#for power_node in $PowerIndicator.get_children():
+			#power_node.mesh.material.set_albedo(Color.GREEN)
 	else:
 		$PowerLightOFF.visible = true
 		$PowerLightON.visible = false
+		#for power_node in $PowerIndicator.get_children():
+			#power_node.mesh.material.set_albedo(Color.WEB_GRAY)
 	update()
+	update_power_indicator()
 
 @rpc("any_peer","call_local","reliable")
 func set_power(mode : bool = false):
@@ -27,10 +70,15 @@ func set_power(mode : bool = false):
 	if power:
 		$PowerLightOFF.visible = false
 		$PowerLightON.visible = true
+		#for power_node in $PowerIndicator.get_children():
+			#power_node.mesh.material.set_albedo(Color.GREEN)
 	else:
 		$PowerLightOFF.visible = true
 		$PowerLightON.visible = false
+		#for power_node in $PowerIndicator.get_children():
+			#power_node.mesh.material.set_albedo(Color.WEB_GRAY)
 	update()
+	update_power_indicator()
 
 @rpc("any_peer","call_local","reliable")
 func update():
@@ -38,6 +86,7 @@ func update():
 		unmute()
 	else:
 		mute()
+	
 
 func start_transmitting():
 	transmitting = true
@@ -75,15 +124,10 @@ func unmute():
 			audioPlayer.volume_db = 0
 
 
-#
+
 #func _process(delta):
 	#if get_multiplayer_authority() == multiplayer.get_unique_id():
 		#drain_battery(delta)
-		#if power and transmitting:
-			#energy -= delta*energy_drain_mod*2
-		#elif power:
-			#energy -= delta*energy_drain_mod
-		#clampf(energy, 0, max_energy)
 	#
 	#if power:
 		#var active_power_ind : int = ceil(energy / max_energy * 10)
