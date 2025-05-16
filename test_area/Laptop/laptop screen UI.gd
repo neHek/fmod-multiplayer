@@ -25,3 +25,6 @@ func _on_database_button_pressed():
 
 func _on_settings_button_pressed():
 	switch_page(settings_page)
+
+func _on_chat_button_pressed() -> void:
+	switch_page(chat_page)

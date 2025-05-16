@@ -1,0 +1,53 @@
+[gd_scene load_steps=6 format=3 uid="uid://cdch15wx8yf6x"]
+
+[ext_resource type="Script" uid="uid://frudbu5qsuga" path="res://test_area/Laptop/chat_message.gd" id="1_swiq2"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1sv34"]
+border_width_left = 10
+border_width_top = 10
+border_width_right = 10
+border_width_bottom = 5
+border_color = Color(0.450648, 0.450648, 0.450648, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+
+[sub_resource type="Theme" id="Theme_0snwo"]
+PanelContainer/styles/panel = SubResource("StyleBoxFlat_1sv34")
+
+[sub_resource type="LabelSettings" id="LabelSettings_51a51"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_3x3ss"]
+font_size = 12
+
+[node name="ChatMessage" type="VBoxContainer"]
+script = ExtResource("1_swiq2")
+
+[node name="request head" type="PanelContainer" parent="."]
+custom_minimum_size = Vector2(1000, 75)
+layout_mode = 2
+size_flags_vertical = 0
+theme = SubResource("Theme_0snwo")
+
+[node name="base request" type="VBoxContainer" parent="request head"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = -1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="request head/base request"]
+layout_mode = 2
+
+[node name="Sender" type="Label" parent="request head/base request/HBoxContainer"]
+layout_mode = 2
+text = "Sender:"
+label_settings = SubResource("LabelSettings_51a51")
+
+[node name="Time" type="Label" parent="request head/base request/HBoxContainer"]
+layout_mode = 2
+text = "Time mark"
+label_settings = SubResource("LabelSettings_3x3ss")
+
+[node name="Message" type="RichTextLabel" parent="request head/base request"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "Text "
+fit_content = true

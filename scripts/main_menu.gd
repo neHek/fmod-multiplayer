@@ -76,6 +76,9 @@ func SendPlayerInformation(player_name, id):
 
 @rpc("any_peer", "call_local")
 func StartGame():
+	if $Name.text != '':
+		Global.player_name = $Name.text
+	else: Global.player_name = 'Noname'
 	var scene = load("res://scenes/main_scene.tscn").instantiate()
 	$'..'.add_child(scene)
 	self.hide()

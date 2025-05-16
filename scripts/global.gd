@@ -2,10 +2,14 @@ extends Node
 var audio_muted : bool = false
 var main_scene
 var RadioTimer : Timer
+var player_name : String
+var player : Player
+var chat_history : Array = []
 
 func _enter_tree() -> void:
 	RadioTimer = create_timer(0.5)
 	RadioTimer.name = 'RadioTimer'
+
 
 func get_all_resources_in_folder(path):
 	var items = {}

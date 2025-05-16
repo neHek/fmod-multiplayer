@@ -1,7 +1,8 @@
-[gd_scene load_steps=15 format=3 uid="uid://cg2ru71agh8t3"]
+[gd_scene load_steps=17 format=3 uid="uid://cg2ru71agh8t3"]
 
 [ext_resource type="Script" uid="uid://crjf8he75s5n1" path="res://test_area/Laptop/laptop screen UI.gd" id="1_xkjs5"]
 [ext_resource type="PackedScene" uid="uid://cehcphcyuw608" path="res://test_area/Laptop/base_request.tscn" id="2_yscmr"]
+[ext_resource type="Script" uid="uid://dqf0dareoiu73" path="res://test_area/Laptop/chat_page.gd" id="3_lk0jg"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_51573"]
 bg_color = Color(0.811765, 0.882353, 0.882353, 1)
@@ -91,6 +92,10 @@ VScrollBar/styles/grabber_pressed = SubResource("StyleBoxFlat_er3hl")
 VScrollBar/styles/scroll = SubResource("StyleBoxFlat_25ui2")
 VScrollBar/styles/scroll_focus = SubResource("StyleBoxFlat_er3hl")
 
+[sub_resource type="LabelSettings" id="LabelSettings_lk0jg"]
+font_size = 20
+font_color = Color(0, 0, 0, 1)
+
 [node name="laptop screen" type="Control"]
 layout_mode = 3
 anchors_preset = 15
@@ -175,7 +180,7 @@ layout_mode = 2
 text = " Chat  "
 label_settings = SubResource("LabelSettings_6s0k1")
 
-[node name="settings button" type="Button" parent="footer/VBoxContainer/footer elements/chat"]
+[node name="chat button" type="Button" parent="footer/VBoxContainer/footer elements/chat"]
 layout_mode = 2
 
 [node name="pages" type="Control" parent="."]
@@ -184,6 +189,7 @@ offset_right = 40.0
 offset_bottom = 40.0
 
 [node name="orders page" type="Control" parent="pages"]
+visible = false
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
@@ -235,10 +241,58 @@ offset_bottom = 40.0
 
 [node name="chat page" type="Control" parent="pages"]
 anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_left = 16.0
+offset_top = 17.0
+offset_right = 1137.0
+offset_bottom = 558.0
+script = ExtResource("3_lk0jg")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="pages/chat page"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="pages/chat page/VBoxContainer"]
+layout_mode = 2
+text = "            TRUTH SOCIAL"
+label_settings = SubResource("LabelSettings_lk0jg")
+
+[node name="ScrollContainer" type="ScrollContainer" parent="pages/chat page/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme = SubResource("Theme_v8r16")
+horizontal_scroll_mode = 0
+
+[node name="Chat" type="VBoxContainer" parent="pages/chat page/VBoxContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 15
+
+[node name="MarginContainer" type="MarginContainer" parent="pages/chat page/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="HBoxContainer" type="HBoxContainer" parent="pages/chat page/VBoxContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="Message" type="LineEdit" parent="pages/chat page/VBoxContainer/MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(1000, 0)
+layout_mode = 2
+
+[node name="Send" type="Button" parent="pages/chat page/VBoxContainer/MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+text = "Send"
 
 [connection signal="pressed" from="footer/VBoxContainer/footer elements/orders/orders button" to="." method="_on_orders_button_pressed"]
 [connection signal="pressed" from="footer/VBoxContainer/footer elements/database/database button" to="." method="_on_database_button_pressed"]
 [connection signal="pressed" from="footer/VBoxContainer/footer elements/settings/settings button" to="." method="_on_settings_button_pressed"]
-[connection signal="pressed" from="footer/VBoxContainer/footer elements/chat/settings button" to="." method="_on_settings_button_pressed"]
+[connection signal="pressed" from="footer/VBoxContainer/footer elements/chat/chat button" to="." method="_on_chat_button_pressed"]
+[connection signal="pressed" from="pages/chat page/VBoxContainer/MarginContainer/HBoxContainer/Send" to="pages/chat page" method="_on_send_pressed"]

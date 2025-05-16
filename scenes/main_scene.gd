@@ -47,6 +47,7 @@ func set_player_authority(player_name):
 		get_node(player_name).get_node("Anchor/Camera").make_current()
 		FmodServer.add_listener(0, get_node(player_name).get_node("Anchor"))
 		Global.set_multiplayer_authority(int(player_name))
+		Global.player = get_node(player_name) 
 	else: # If not authority
 		get_node(player_name).get_node('InventoryNode').visible = false
 	# voip crutch
