@@ -13,7 +13,8 @@ func _ready():
 
 
 func _process(_delta):
-	handle_interactions()
+	if is_multiplayer_authority():
+		handle_interactions()
 
 func handle_interactions():
 	collider = InteractRay.get_collider()

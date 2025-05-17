@@ -1,8 +1,9 @@
-[gd_scene load_steps=17 format=3 uid="uid://cg2ru71agh8t3"]
+[gd_scene load_steps=20 format=3 uid="uid://cg2ru71agh8t3"]
 
 [ext_resource type="Script" uid="uid://crjf8he75s5n1" path="res://test_area/Laptop/laptop screen UI.gd" id="1_xkjs5"]
 [ext_resource type="PackedScene" uid="uid://cehcphcyuw608" path="res://test_area/Laptop/base_request.tscn" id="2_yscmr"]
 [ext_resource type="Script" uid="uid://dqf0dareoiu73" path="res://test_area/Laptop/chat_page.gd" id="3_lk0jg"]
+[ext_resource type="Script" uid="uid://by247x22fesjk" path="res://test_area/Laptop/message_box.gd" id="4_eb2p0"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_51573"]
 bg_color = Color(0.811765, 0.882353, 0.882353, 1)
@@ -95,6 +96,13 @@ VScrollBar/styles/scroll_focus = SubResource("StyleBoxFlat_er3hl")
 [sub_resource type="LabelSettings" id="LabelSettings_lk0jg"]
 font_size = 20
 font_color = Color(0, 0, 0, 1)
+
+[sub_resource type="InputEventKey" id="InputEventKey_lk0jg"]
+device = -1
+keycode = 4194309
+
+[sub_resource type="Shortcut" id="Shortcut_eb2p0"]
+events = [SubResource("InputEventKey_lk0jg")]
 
 [node name="laptop screen" type="Control"]
 layout_mode = 3
@@ -285,10 +293,12 @@ layout_mode = 2
 [node name="Message" type="LineEdit" parent="pages/chat page/VBoxContainer/MarginContainer/HBoxContainer"]
 custom_minimum_size = Vector2(1000, 0)
 layout_mode = 2
+script = ExtResource("4_eb2p0")
 
 [node name="Send" type="Button" parent="pages/chat page/VBoxContainer/MarginContainer/HBoxContainer"]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
+shortcut = SubResource("Shortcut_eb2p0")
 text = "Send"
 
 [connection signal="pressed" from="footer/VBoxContainer/footer elements/orders/orders button" to="." method="_on_orders_button_pressed"]

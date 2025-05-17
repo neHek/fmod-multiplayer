@@ -27,8 +27,10 @@ func _ready():
 		logNode.text += 'Autoconnecting...\n'
 		for argument in OS.get_cmdline_args():
 			if argument == '--host':
+				$Name.text = 'Host'
 				_on_host_button_down()
 			elif argument == '--client':
+				$Name.text = 'Client'
 				DisplayServer.window_set_current_screen(2)
 				var timer = Timer.new()
 				timer.wait_time = .5
@@ -41,8 +43,6 @@ func _ready():
 				await timer.timeout
 				_on_start_game_button_down()
 				
-
-
 
 func peer_connected(id):
 	print('Player connected, id: ', id)

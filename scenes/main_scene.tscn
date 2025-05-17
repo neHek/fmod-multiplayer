@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://co7gxshtbrdmv"]
+[gd_scene load_steps=24 format=3 uid="uid://co7gxshtbrdmv"]
 
 [ext_resource type="Script" uid="uid://ce1wtsu13p6r6" path="res://scripts/surfaceType.gd" id="1_7ykc4"]
 [ext_resource type="Script" uid="uid://vrqkbk5scj5w" path="res://scenes/main_scene.gd" id="1_pu3yx"]
@@ -37,6 +37,11 @@ size = Vector3(50, 1, 50)
 [sub_resource type="BoxShape3D" id="BoxShape3D_66tet"]
 size = Vector3(100, 50, 1)
 
+[sub_resource type="BoxMesh" id="BoxMesh_c16ls"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_18nlu"]
+size = Vector3(2.82684, 1.23718, 1)
+
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gubc5"]
 metallic = 1.0
 roughness = 0.51
@@ -65,7 +70,7 @@ script = ExtResource("1_7ykc4")
 SurfaceType = "wood"
 
 [node name="CollisionShape3D2" type="CollisionShape3D" parent="StaticBody3D2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 38.5835, -2.79925, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 38.5835, -2.7131, 0)
 shape = SubResource("BoxShape3D_nfk4m")
 
 [node name="MeshInstance3D3" type="MeshInstance3D" parent="StaticBody3D2"]
@@ -104,6 +109,22 @@ shape = SubResource("BoxShape3D_66tet")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24.6333, 4.33897, -25.1723)
 shape = SubResource("BoxShape3D_66tet")
 
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="StaticBody3D"]
+transform = Transform3D(2.82158, 0, 0, 0, 1.82468, 0, 0, 0, 1.00405, 49.9281, 2.63696, 10.6751)
+mesh = SubResource("BoxMesh_c16ls")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 49.9214, 2.92884, 10.6729)
+shape = SubResource("BoxShape3D_18nlu")
+
+[node name="MeshInstance3D5" type="MeshInstance3D" parent="StaticBody3D"]
+transform = Transform3D(2.82158, 0, 0, 0, 1.82468, 0, 0, 0, 1.00405, -19.5888, 1.44355, 4.88571)
+mesh = SubResource("BoxMesh_c16ls")
+
+[node name="CollisionShape3D5" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -19.5954, 1.73544, 4.88348)
+shape = SubResource("BoxShape3D_18nlu")
+
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 116.608, -46.1456)
 
@@ -124,14 +145,14 @@ bank_paths = ["res://FMod-bank/Desktop/Master.strings.bank", "res://FMod-bank/De
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 20.3068)
 
 [node name="0" type="Marker3D" parent="SpawnLocations" groups=["PlayerSpawnPoint"]]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.0146, 1, -6.02284)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -19.8442, 1, -10.6521)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="SpawnLocations/0"]
 mesh = SubResource("PlaneMesh_pu3yx")
 skeleton = NodePath("../../..")
 
 [node name="1" type="Marker3D" parent="SpawnLocations" groups=["PlayerSpawnPoint"]]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.35829, 1, -6.23883)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 50.1397, 2.33443, -6.23883)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="SpawnLocations/1"]
 transform = Transform3D(0.999996, -0.00272271, 0, 0.00272271, 0.999996, 0, 0, 0, 1, 0, 0, 0)
@@ -144,11 +165,14 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.76299, 0.440161, -6.50715)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.12245, 0)
 mesh = SubResource("PlaneMesh_rt2n2")
 
+[node name="Laptop" parent="." instance=ExtResource("7_c16ls")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -19.7015, 2.36249, 4.86608)
+
+[node name="Laptop2" parent="." instance=ExtResource("7_c16ls")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 49.8111, 3.57266, 10.7394)
+
 [node name="Radio" parent="." instance=ExtResource("6_rt2n2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18.5003, 3.0081, 4.77921)
 
 [node name="Radio2" parent="." instance=ExtResource("6_rt2n2")]
-collision_layer = 17
-collision_mask = 17
-
-[node name="Laptop" parent="." instance=ExtResource("7_c16ls")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.68299, 3.34473, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 50.9695, 3.74718, 10.8089)

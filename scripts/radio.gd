@@ -15,10 +15,12 @@ func _ready():
 func _process(delta):
 	if get_multiplayer_authority() == multiplayer.get_unique_id():
 		drain_battery(delta)
+		if name =='Radio': print(position) #TODO Debug for radio
 
 func drain_battery(time):
 	if energy <= 0: 
 		set_power.rpc(false)
+		stop_transmitting()
 		return
 	
 	if power and transmitting:
@@ -70,13 +72,9 @@ func set_power(mode : bool = false):
 	if power:
 		$PowerLightOFF.visible = false
 		$PowerLightON.visible = true
-		#for power_node in $PowerIndicator.get_children():
-			#power_node.mesh.material.set_albedo(Color.GREEN)
 	else:
 		$PowerLightOFF.visible = true
 		$PowerLightON.visible = false
-		#for power_node in $PowerIndicator.get_children():
-			#power_node.mesh.material.set_albedo(Color.WEB_GRAY)
 	update()
 	update_power_indicator()
 

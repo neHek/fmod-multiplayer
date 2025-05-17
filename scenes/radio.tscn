@@ -28,26 +28,6 @@ height = 0.03
 [sub_resource type="BoxShape3D" id="BoxShape3D_uf7ta"]
 size = Vector3(0.15, 0.3, 0.15)
 
-[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_ldjbc"]
-properties/0/path = NodePath(".:position")
-properties/0/spawn = true
-properties/0/replication_mode = 1
-properties/1/path = NodePath(".:rotation")
-properties/1/spawn = true
-properties/1/replication_mode = 1
-properties/2/path = NodePath(".:freeze")
-properties/2/spawn = true
-properties/2/replication_mode = 1
-properties/3/path = NodePath("AudioStreamPlayer3D:playing")
-properties/3/spawn = true
-properties/3/replication_mode = 2
-properties/4/path = NodePath(".:power")
-properties/4/spawn = true
-properties/4/replication_mode = 2
-properties/5/path = NodePath(".:energy")
-properties/5/spawn = true
-properties/5/replication_mode = 2
-
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ldjbc"]
 albedo_color = Color(1, 0, 0, 1)
 
@@ -66,24 +46,106 @@ height = 0.05
 
 [sub_resource type="Animation" id="Animation_7h80l"]
 length = 0.001
-tracks/0/type = "position_3d"
+tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath(".")
+tracks/0/path = NodePath("Node3D:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
-tracks/0/keys = PackedFloat32Array(0, 1, 0, 0, 0)
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("PowerLightOFF:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0.000702709, -0.0796688, 0.0564596)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("PowerLightON:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0.000702709, -0.0796688, 0.0564596)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("PowerIndicator:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, -0.0234768)]
+}
 
 [sub_resource type="Animation" id="Animation_ldjbc"]
 resource_name = "start_transmitting"
 length = 0.15
-tracks/0/type = "position_3d"
+tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath(".")
+tracks/0/path = NodePath("Node3D:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
-tracks/0/keys = PackedFloat32Array(0, 1, 0, 0, 0, 0.15, 1, -0.1, 0, 0.3)
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.15),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 0, 0.3)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("PowerLightOFF:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.15),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0.000702709, -0.0796688, 0.0564596), Vector3(0.001, -0.08, 0.356)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("PowerLightON:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.15),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0.000702709, -0.0796688, 0.0564596), Vector3(0.001, -0.08, 0.356)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("PowerIndicator:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.15),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, -0.0234768), Vector3(0, 0, 0.277)]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_4b7o3"]
 _data = {
@@ -118,10 +180,29 @@ top_radius = 0.02
 bottom_radius = 0.02
 height = 0.02
 
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_ldjbc"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath(".:rotation")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+properties/2/path = NodePath(".:freeze")
+properties/2/spawn = true
+properties/2/replication_mode = 1
+properties/3/path = NodePath("AudioStreamPlayer3D:playing")
+properties/3/spawn = true
+properties/3/replication_mode = 2
+properties/4/path = NodePath(".:power")
+properties/4/spawn = true
+properties/4/replication_mode = 2
+properties/5/path = NodePath(".:energy")
+properties/5/spawn = true
+properties/5/replication_mode = 2
+
 [node name="Radio" type="RigidBody3D" groups=["radio"]]
-disable_mode = 1
-collision_layer = 19
-collision_mask = 19
+collision_layer = 16
+collision_mask = 17
 script = ExtResource("1_y83x7")
 
 [node name="Pickupable" type="Node3D" parent="."]
@@ -148,9 +229,6 @@ text = "Radio"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("BoxShape3D_uf7ta")
-
-[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
-replication_config = SubResource("SceneReplicationConfig_ldjbc")
 
 [node name="PowerLightOFF" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.000702709, -0.0796688, 0.0564596)
@@ -275,3 +353,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0408514, 0.092074)
 visible = false
 mesh = SubResource("CylinderMesh_q5v4t")
 skeleton = NodePath("../..")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_ldjbc")

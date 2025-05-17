@@ -28,3 +28,4 @@ func _on_settings_button_pressed():
 
 func _on_chat_button_pressed() -> void:
 	switch_page(chat_page)
+	$"pages/chat page/VBoxContainer/MarginContainer/HBoxContainer/Message".grab_focus()

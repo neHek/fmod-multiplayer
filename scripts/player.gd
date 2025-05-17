@@ -53,6 +53,7 @@ func _unhandled_input(event: InputEvent) -> void:
 	if Input.is_action_just_pressed("switch_radio"):
 		switch_radio()
 
+
 func _physics_process(delta: float) -> void:
 	if get_multiplayer_authority() == multiplayer.get_unique_id():
 		sync_pos = global_position
@@ -139,4 +140,13 @@ func voip_init():
 func switch_radio():
 	if !voip_controller:
 		voip_init()
-	
+
+@rpc('any_peer',"call_remote")
+func spawn_laptop(nameStr : String = ''):
+	var lap = load("res://test_area/Laptop/laptop.tscn")
+	lap = lap.instantiate()
+	if nameStr != '':
+		lap.name = nameStr
+	Global.main_scene.add_child(lap)
+	lap.position += Vector3(0,2,0)
+	return lap.name

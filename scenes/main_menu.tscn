@@ -4,10 +4,6 @@
 
 [node name="Main" type="Node3D"]
 
-[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
-_spawnable_scenes = PackedStringArray("uid://y1u2w8qqwfjt")
-spawn_path = NodePath("..")
-
 [node name="MainMenu" type="Control" parent="."]
 custom_minimum_size = Vector2(200, 200)
 layout_mode = 3

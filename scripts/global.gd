@@ -1,15 +1,28 @@
 extends Node
 var audio_muted : bool = false
-var main_scene
+var main_scene : Node
 var RadioTimer : Timer
 var player_name : String
 var player : Player
 var chat_history : Array = []
+signal chat_update
 
 func _enter_tree() -> void:
 	RadioTimer = create_timer(0.5)
 	RadioTimer.name = 'RadioTimer'
 
+@rpc("any_peer","call_local","reliable")
+func set_chat_history(history : Array):
+	chat_history = history
+	chat_update.emit()
+
+func chat_history_append(message : Array):
+	chat_history.append(message)
+	chat_update.emit()
+
+@rpc("any_peer","call_local","reliable")
+func request_chat_history():
+	set_chat_history.rpc_id(multiplayer.get_remote_sender_id(), chat_history)
 
 func get_all_resources_in_folder(path):
 	var items = {}
